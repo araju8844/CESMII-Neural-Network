@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from dataOrganizer import initNumpyDict
+from random import sample
 # list of all the balanced datafiles that need to be read
 # ADD the balanced excel files here here
 balancedFiles = [
@@ -28,13 +29,31 @@ unbalancedFiles = [
 # length of each frame for each training example
 frameLength = 60
 allFiles = balancedFiles + unbalancedFiles
+# empty dictionary to put the necessary data in with the function
 numpyDict = {}
 m = initNumpyDict(frameLength, numpyDict, allFiles, balancedFiles)
-print(m, numpyDict[allFiles[0]][1], numpyDict[allFiles[9]]
-      [1], numpyDict[allFiles[10]][1])
-# initialized variables to store data and total examples from dataOrganizer
-
 # TODO: edit m_train and frameLength
+# initialize a numpy array that has the space to contain all the training examples
+# array has frameLength*2 when flattened
+allExamples = np.zeros((frameLength*2, m))
+# create the training examples at each frame length and put in allExamples
+# create an array that has the values from 0 to m arranged in a random array
+randomizedIndex = sample(list(range(0, m)), m)
+i = 0
+# iterate through each sheet
+for sheet in allFiles:
+    j = 0
+    # creates the dataset and assigns to random position
+    while j + frameLength < numpyDict[sheet][0].shape[0]:
+        allExamples[:, randomizedIndex[i]] = numpyDict[sheet][0][j:j +
+                                                                 frameLength].reshape(2*frameLength)
+        # increment j by 30 and the examples index by 1
+        j += frameLength//2
+        i += 1
+
+print(allExamples.shape)
+
+
 m_train = 4
 m_test = len(allFiles) - m_train
 
