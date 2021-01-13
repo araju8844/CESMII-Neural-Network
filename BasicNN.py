@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
+from dataOrganizer import initNumpyDict
 # list of all the balanced datafiles that need to be read
+# ADD the balanced excel files here here
 balancedFiles = [
     "D:/Research PSU 2020/Clean Balanced MEMS/151_10Hz_10s.xlsx",
     "D:/Research PSU 2020/Clean Balanced MEMS/152_10Hz_10s.xlsx",
@@ -13,6 +15,7 @@ balancedFiles = [
     "D:/Research PSU 2020/Clean Balanced MEMS/159_17Hz_10s.xlsx",
     "D:/Research PSU 2020/Clean Balanced MEMS/160_25Hz_10s.xlsx"]
 # lift of all the unbalanced files
+# ADD the unbalanced excel files here
 unbalancedFiles = [
     "D:/Research PSU 2020/Clean Unbalanced MEMS/166_14Hz_10s.xlsx",
     "D:/Research PSU 2020/Clean Unbalanced MEMS/167_14Hz_10s.xlsx",
@@ -21,20 +24,41 @@ unbalancedFiles = [
     "D:/Research PSU 2020/Clean Unbalanced MEMS/170_25Hz_10s.xlsx",
     "D:/Research PSU 2020/Clean Unbalanced MEMS/171_25Hz_10s.xlsx",
     "D:/Research PSU 2020/Clean Unbalanced MEMS/172_25Hz_10s.xlsx"]
-# implement randomization here for all files
+
+# length of each frame for each training example
+frameLength = 60
 allFiles = balancedFiles + unbalancedFiles
-m_train = 5
+numpyDict = {}
+m = initNumpyDict(frameLength, numpyDict, allFiles, balancedFiles)
+print(m, numpyDict[allFiles[0]][1], numpyDict[allFiles[9]]
+      [1], numpyDict[allFiles[10]][1])
+# initialized variables to store data and total examples from dataOrganizer
+
+# TODO: edit m_train and frameLength
+m_train = 4
 m_test = len(allFiles) - m_train
-counter = 0
+
+
 # initializing the training and testing set arrays and allocating their space
 train_set_x_orig = np.zeros((8000, m_train))
 train_set_y_orig = np.zeros((1, m_train))
 test_set_x_orig = np.zeros((8000, m_test))
 test_set_y_orig = np.zeros((1, m_test))
-# split each file into frames to get more training examples
 
-# for loop to organize flatten and put into the respective test and training sets
-for i in allFiles:
+# for loop to create each training example will randomize separately
+"""for i in allFiles:
+    #read the excel file
+    fileDataframe = pd.read_excel(i)
+    #convert to numpy array
+    fileData = fileDataframe.to_numpy()
+    j = 0
+    #while loop to create each training example
+    while j+60 < fileData.shape[1]:
+        
+        #increment by 30
+        j+= 30    
+"""
+"""for i in allFiles:
     # read the file
     dataframe = pd.read_excel(i)
     # convert to numpy
@@ -56,21 +80,6 @@ for i in allFiles:
         # if i is from the balanced dataset gives 1 else gives a 0
         train_set_y_orig[counter - m_train] = i in balancedFiles
     counter += 1
-
-# size of data read has to be 4000
-# resizedarr = np.delete(arr, np.s_[5:], 0)
-# print(resizedarr)
-# arr_flatten = resizedarr.reshape(1, resizedarr.shape[0]*resizedarr.shape[1]).T
-# for loop through each excel file
-# create an array from each excel file and store in temp variable
-# take this temporary array and flatten it by using the .shape
-# append this as a new index to the final test or train set array
+"""
 # append correct balanced(1) or unbalanced(0) value to y value array
-# go back through loop
-# finarr = arr_flatten
-# finarr = np.append(finarr, arr_flatten, axis=1)
-# print(finarr)
-# need trainsetx,y and testsetx,y
-# y will just be determined from folder of the read
-# each example in training set will be the z and timestamp flattened together
 # you can use dataframe.to_numpy() to turn into arrays
