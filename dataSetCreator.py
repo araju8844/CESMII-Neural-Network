@@ -61,8 +61,6 @@ def createDataSet():
             j += frameLength//2
             i += 1
 
-    print(allExamples.shape)
-
     # initialize m_train and test
     m_train = int(m*trainRatio)
     m_test = m - m_train
