@@ -1,6 +1,7 @@
-import Tensorflow as tf
-import numpy as np
 from dataSetCreator import *
+import numpy as np
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 train_set_x, train_set_y, test_set_x, test_set_y = createDataSet()
 print(train_set_x.shape, train_set_y.shape, test_set_x.shape)
@@ -168,15 +169,15 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate=0.0001,
 
         # Do the training loop
         for epoch in range(num_epochs):
-             _, epoch_cost = sess.run([optimizer, cost], feed_dict={
-                                      X: train_set_x, Y: train_set_y})
+            _, epoch_cost = sess.run([optimizer, cost], feed_dict={
+                X: train_set_x, Y: train_set_y})
 
             # Print the cost every epoch
             if print_cost == True and epoch % 100 == 0:
-                print ("Cost after epoch %i: %f" % (epoch, epoch_cost))
+                print("Cost after epoch %i: %f" % (epoch, epoch_cost))
             if print_cost == True and epoch % 5 == 0:
                 costs.append(epoch_cost)
-                
+
         # plot the cost
         plt.plot(np.squeeze(costs))
         plt.ylabel('cost')
@@ -186,7 +187,7 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate=0.0001,
 
         # lets save the parameters in a variable
         parameters = sess.run(parameters)
-        print ("Parameters have been trained!")
+        print("Parameters have been trained!")
 
         # Calculate the correct predictions
         correct_prediction = tf.equal(tf.argmax(Z3), tf.argmax(Y))
@@ -194,7 +195,7 @@ def model(X_train, Y_train, X_test, Y_test, learning_rate=0.0001,
         # Calculate accuracy on the test set
         accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
 
-        print ("Train Accuracy:", accuracy.eval({X: X_train, Y: Y_train}))
-        print ("Test Accuracy:", accuracy.eval({X: X_test, Y: Y_test}))
-        
+        print("Train Accuracy:", accuracy.eval({X: X_train, Y: Y_train}))
+        print("Test Accuracy:", accuracy.eval({X: X_test, Y: Y_test}))
+
         return parameters
