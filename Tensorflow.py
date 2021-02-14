@@ -1,24 +1,30 @@
+import importTF
 from dataSetCreator import *
 import numpy as np
 import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
 
 # getting data from randomized set
 x_train, y_train, x_test, y_test = createDataSet()
 print(x_train.shape, y_train.shape, x_test.shape)
 
 # turning the numpy arrays into normalized tensors
-x_train = tf.keras.utils.normalize(tf.convert_to_tensor(x_train), axis=1)
-x_test = tf.keras.utils.normalize(tf.convert_to_tensor(x_test), axis=1)
-y_train = tf.convert_to_tensor(y_train)
-y_test = tf.convert_to_tensor(y_test)
+x_train = my_func(x_train)
+x_test = my_func(x_test)
+y_train = my_func(y_train)
+y_test = my_func(y_test)
 
+# TODO: Normalize the vectors and put them into new train and test sets
+
+# Labels: Balanced and Unbalanced Outputs
 model = tf.keras.models.Sequential()
 # do i need the flatten here i dont know how to do it otherwise
-model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(30, activation=tf.nn.relu))
-model.add(tf.keras.layers.Dense(20, activation=tf.nn.relu))
-model.add(tf.keras.layers.Dense(10, activation=tf.nn.relu))
-model.add(tf.keras.layers.Dense(1, activation=tf.nn.sigmoid))
+model.add(keras.layers.Flatten())
+model.add(keras.layers.Dense(30, activation="relu"))
+model.add(keras.layers.Dense(20, activation="relu"))
+model.add(keras.layers.Dense(10, activation="relu"))
+model.add(keras.layers.Dense(1, activation="sigmoid"))
 
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy', metrics=['accuracy'])

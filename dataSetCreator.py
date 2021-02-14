@@ -56,6 +56,7 @@ def createDataSet():
         while j + frameLength < numpyDict[sheet][0].shape[0]:
             allExamples[:, randomizedIndex[i]] = numpyDict[sheet][0][j:j +
                                                                      frameLength].reshape(2*frameLength)
+            # Balanced with 1 unbalanced with 0
             allOutcomes[0, randomizedIndex[i]] = sheet in balancedFiles
             # increment j by 30 and the examples index by 1
             j += frameLength//2
