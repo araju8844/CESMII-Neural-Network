@@ -10,10 +10,10 @@ x_train, y_train, x_test, y_test = createDataSet()
 print(x_train.shape, y_train.shape, x_test.shape)
 
 # turning the numpy arrays into normalized tensors
-x_train = my_func(x_train)
-x_test = my_func(x_test)
-y_train = my_func(y_train)
-y_test = my_func(y_test)
+x_train = importTF.my_func(x_train)
+x_test = importTF.my_func(x_test)
+y_train = importTF.my_func(y_train)
+y_test = importTF.my_func(y_test)
 
 # TODO: Normalize the vectors and put them into new train and test sets
 
