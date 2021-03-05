@@ -7,7 +7,7 @@ from tensorflow.keras import layers
 
 # getting data from randomized set
 x_train, y_train, x_test, y_test = createDataSet()
-print(x_train.shape, y_train.shape, x_test.shape)
+print(x_train.shape, y_train.shape, x_test.shape, y_test.shape)
 
 # turning the numpy arrays into normalized tensors
 x_train = importTF.my_func(x_train)
