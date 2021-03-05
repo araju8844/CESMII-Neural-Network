@@ -21,15 +21,15 @@ y_test = importTF.my_func(y_test)
 model = tf.keras.models.Sequential()
 # do i need the flatten here i dont know how to do it otherwise
 model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(30, activation="relu"))
-model.add(keras.layers.Dense(20, activation="relu"))
-model.add(keras.layers.Dense(10, activation="relu"))
+model.add(keras.layers.Dense(8, activation="relu"))
+model.add(keras.layers.Dense(12, activation="relu"))
+#model.add(keras.layers.Dense(12, activation="relu"))
 model.add(keras.layers.Dense(1, activation="sigmoid"))
 
 model.compile(optimizer='adam',
               loss='binary_crossentropy', metrics=['accuracy'])
 print(x_train.shape, y_train.shape, x_test.shape, y_test.shape)
-model.fit(x_train, y_train, batch_size=100, epochs=3)
+model.fit(x_train, y_train, batch_size=100, epochs=16)
 
 val_loss, val_acc = model.evaluate(x_test, y_test)
 print(val_loss, val_acc)
