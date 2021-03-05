@@ -39,11 +39,13 @@ def createDataSet():
     # empty dictionary to put the necessary data in with the function
     numpyDict = {}
     m = initNumpyDict(frameLength, numpyDict, allFiles, balancedFiles)
+    print("here")
     # TODO: edit m_train and frameLength
     # initialize a numpy array that has the space to contain all the training examples
     # array has frameLength*2 when flattened
     allExamples = np.zeros((frameLength*2, m))
     allOutcomes = np.zeros((1, m))
+    print("there")
 
     # create the training examples at each frame length and put in allExamples
     # create an array that has the values from 0 to m arranged in a random array
@@ -52,10 +54,13 @@ def createDataSet():
     # iterate through each sheet
     for sheet in allFiles:
         j = 0
+
         # creates the dataset and assigns to random position
         while j + frameLength < numpyDict[sheet][0].shape[0]:
+            print("enter")
             allExamples[:, randomizedIndex[i]] = numpyDict[sheet][0][j:j +
                                                                      frameLength].reshape(2*frameLength)
+            print("exit")
             # Balanced with 1 unbalanced with 0
             allOutcomes[0, randomizedIndex[i]] = sheet in balancedFiles
             # increment j by 30 and the examples index by 1
@@ -70,4 +75,6 @@ def createDataSet():
     train_set_y_orig = allOutcomes[:, 0:m_train]
     test_set_x_orig = allExamples[:, m_train:]
     test_set_y_orig = allOutcomes[:, m_train:]
+    print(train_set_x_orig.shape, train_set_y_orig.shape,
+          test_set_x_orig.shape, test_set_y_orig.shape)
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig
