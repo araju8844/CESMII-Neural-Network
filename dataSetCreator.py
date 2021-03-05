@@ -68,9 +68,9 @@ def createDataSet():
     m_train = int(m*trainRatio)
     m_test = m - m_train
     # initializing the training and testing set arrays and allocating their space
-    train_set_x_orig = allExamples[:, 0:m_train]
-    train_set_y_orig = allOutcomes[:, 0:m_train]
-    test_set_x_orig = allExamples[:, m_train:]
-    test_set_y_orig = allOutcomes[:, m_train:]
+    train_set_x_orig = np.transpose(allExamples[:, 0:m_train])
+    train_set_y_orig = np.transpose(allOutcomes[:, 0:m_train])
+    test_set_x_orig = np.transpose(allExamples[:, m_train:])
+    test_set_y_orig = np.transpose(allOutcomes[:, m_train:])
 
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig
