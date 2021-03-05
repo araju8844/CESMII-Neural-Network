@@ -27,7 +27,7 @@ model.add(keras.layers.Dense(10, activation="relu"))
 model.add(keras.layers.Dense(1, activation="sigmoid"))
 
 model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+              loss='binary_crossentropy', metrics=['accuracy'])
 print(x_train.shape, y_train.shape, x_test.shape, y_test.shape)
 model.fit(x_train, y_train, batch_size=100, epochs=3)
 
