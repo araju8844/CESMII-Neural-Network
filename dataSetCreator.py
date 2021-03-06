@@ -28,7 +28,7 @@ unbalancedFiles = [
 
 # CHANGE FRAME LENGTH AND TRAIN/TEST RATIO HERE
 # length of each frame for each training example
-frameLength = 100
+frameLength = 150
 trainRatio = .8
 
 
