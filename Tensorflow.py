@@ -26,18 +26,18 @@ model.add(keras.layers.Flatten())
 model.add(tf.keras.layers.BatchNormalization())
 model.add(keras.layers.Dense(3, activation="relu"))
 model.add(tf.keras.layers.BatchNormalization())
-model.add(tf.keras.layers.Dropout(.1))
+model.add(tf.keras.layers.Dropout(.333))
 model.add(keras.layers.Dense(5, activation="relu"))
 model.add(tf.keras.layers.BatchNormalization())
-model.add(tf.keras.layers.Dropout(.1))
+model.add(tf.keras.layers.Dropout(.2))
 #model.add(keras.layers.Dense(2, activation="relu"))
 model.add(keras.layers.Dense(1, activation="sigmoid"))
 
-model.compile(optimizer='adam',
+model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.1),
               loss='binary_crossentropy', metrics=['accuracy'])
 print(x_train.shape, y_train.shape, x_test.shape, y_test.shape)
 callbacks = []
-model.fit(x_train, y_train, batch_size=50, epochs=16)
+model.fit(x_train, y_train, batch_size=50, epochs=32)
 
 val_loss, val_acc = model.evaluate(x_test, y_test)
 print(val_loss, val_acc)
