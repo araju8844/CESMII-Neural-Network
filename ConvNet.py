@@ -7,10 +7,11 @@ from tensorflow import keras
 from tensorflow.keras import layers
 import importTF
 
-x_train, y_train, x_test, y_test, = lenetDataset()
+x_train, y_train, x_test, y_test, = piezoDataset()
 x_train = x_train.reshape(-1, 32, 32, 1)
 x_test = x_test.reshape(-1, 32, 32, 1)
 print(x_train.shape, y_train.shape, x_test.shape, y_test.shape)
+
 model = tf.keras.Sequential()
 
 model.add(layers.Conv2D(filters=6, kernel_size=(3, 3),
